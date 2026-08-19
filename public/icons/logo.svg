@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 92" role="img" aria-labelledby="title desc">
+<title id="title">Panduan Menara Pandang Banjarmasin</title><desc id="desc">Simbol dua menara jingga di atas gelombang Sungai Martapura</desc>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 66c18-10 35-10 53 0s35 10 53 0" stroke="#175b60" stroke-width="6"/>
+  <path d="M32 77c14-7 28-7 42 0s28 7 42 0" stroke="#8ec7bd" stroke-width="4"/>
+  <path d="M47 57V25h17v32M84 57V16h18v41" stroke="#df6d36" stroke-width="7"/>
+  <path d="M43 25h25M80 16h26" stroke="#1f2b2d" stroke-width="4"/>
+</g>
+<text x="137" y="42" font-family="ui-serif, Georgia, serif" font-size="25" font-weight="700" fill="#1f2b2d">MENARA PANDANG</text>
+<text x="138" y="65" font-family="ui-sans-serif, Arial, sans-serif" font-size="13" letter-spacing="3" fill="#6b5b52">BANJARMASIN</text>
+</svg>

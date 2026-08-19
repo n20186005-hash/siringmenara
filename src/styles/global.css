@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Aptos", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --color-river-900: #163c3e;
+  --color-river-700: #175b60;
+  --color-river-300: #8ec7bd;
+  --color-tower-600: #c95627;
+  --color-tower-500: #df6d36;
+  --color-sand-100: #fffaf1;
+  --color-sand-200: #f5ecdf;
+  --color-ink-900: #1f2b2d;
+  --color-ink-600: #5f6868;
+}
+
+:root { color-scheme: light; --shadow: 0 20px 60px rgba(31,43,45,.12); }
+html { scroll-behavior: smooth; background:#fffaf1; }
+body { margin:0; font-family:var(--font-sans); color:#1f2b2d; background:#fffaf1; line-height:1.65; }
+::selection { background:#f2b08d; color:#1f2b2d; }
+a { color:inherit; }
+img { display:block; max-width:100%; }
+.container-page { width:min(1180px, calc(100% - 2rem)); margin-inline:auto; }
+.eyebrow { font-size:.73rem; text-transform:uppercase; letter-spacing:.18em; font-weight:800; color:#c95627; }
+.display { font-family:var(--font-serif); line-height:.96; letter-spacing:-.04em; }
+.section-title { font-family:var(--font-serif); font-size:clamp(2.25rem,5vw,4.5rem); line-height:1; letter-spacing:-.035em; }
+.section-copy { max-width:66ch; color:#5f6868; font-size:1.05rem; }
+.paper { background:rgba(255,250,241,.92); border:1px solid rgba(31,43,45,.1); box-shadow:var(--shadow); }
+.river-grid { background-image:linear-gradient(rgba(23,91,96,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(23,91,96,.06) 1px,transparent 1px); background-size:32px 32px; }
+.wave-rule { height:20px; background:radial-gradient(40px 14px at 20px -3px, transparent 68%, #175b60 70% 74%, transparent 76%) 0 0/80px 20px repeat-x; opacity:.25; }
+.focus-ring:focus-visible { outline:3px solid #df6d36; outline-offset:4px; }
+.prose-policy h2 { font-family:var(--font-serif); font-size:2rem; margin-top:2.4rem; margin-bottom:.6rem; }
+.prose-policy h3 { font-size:1.15rem; margin-top:1.5rem; font-weight:800; }
+.prose-policy p,.prose-policy li { color:#4f5b5c; }
+.prose-policy ul { padding-left:1.25rem; list-style:disc; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }

@@ -1,0 +1,65 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+}
+const { title, description, image='/images/menara-hero.webp', noindex=false } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = Astro.site ? new URL(image, Astro.site).href : undefined;
+const gaId = 'G-HXM22WWPKP';
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fffaf1" />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+    <script is:inline define:vars={{ gaId }}>
+      (() => {
+        const key = 'menara-cookie-consent';
+        const loadAnalytics = () => {
+          if (document.querySelector('script[data-ga-loader]')) return;
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+          script.dataset.gaLoader = 'true';
+          document.head.appendChild(script);
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){ window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', gaId, { anonymize_ip: true });
+        };
+        try {
+          const saved = JSON.parse(localStorage.getItem(key) || '{}');
+          if (saved.analytics === true) loadAnalytics();
+        } catch {}
+        window.addEventListener('menara:consent', (event) => {
+          if (event.detail?.analytics === true) loadAnalytics();
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
