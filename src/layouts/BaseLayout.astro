@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { SITE_NAME } from '@/data/site';
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ const gaId = 'G-HXM22WWPKP';
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}

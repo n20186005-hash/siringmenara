@@ -28,7 +28,7 @@ Akibat kegagalan jaringan tersebut, `pnpm check` dan `pnpm build` tidak dapat di
 - Tidak ada referensi gambar lokal yang hilang.
 - Dokumen HTML/Astro yang dirender memakai Bahasa Indonesia (`lang="id"`); tidak ada sisa Baguio, `zh-CN`, atau parameter wilayah Jepang pada embed Google Maps.
 - Tidak ada `example.com`, `localhost`, atau `chrome-extension://` pada konten situs. String tersebut hanya muncul di skrip audit sebagai pola yang memang harus ditolak.
-- Tidak ada sitemap manual atau `lastmod` buatan. Integrasi sitemap hanya aktif jika `site` diisi pada satu lokasi, yaitu `astro.config.mjs`.
+- Tidak ada sitemap manual atau `lastmod` buatan. Integrasi sitemap aktif karena `site` sudah diisi di `astro.config.mjs` (`https://siringmenara.com`); halaman `404` difilter dari sitemap. `public/robots.txt` menunjuk ke `sitemap-index.xml`, dan `public/_headers` menerapkan HSTS (`Strict-Transport-Security`) untuk mengunci versi HTTPS.
 
 ## Gerbang final di lingkungan dengan akses npm
 
