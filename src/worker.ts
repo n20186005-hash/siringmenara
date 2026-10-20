@@ -1,0 +1,2 @@
+interface Env {ASSETS:{fetch:(request:Request)=>Promise<Response>}}
+export default {async fetch(request:Request,env:Env){const u=new URL(request.url);if((u.hostname==="siringmenara.com"||u.hostname==="www.siringmenara.com")&&(u.protocol!=="https:"||u.hostname!=="siringmenara.com")){u.protocol="https:";u.hostname="siringmenara.com";u.port="";return Response.redirect(u.toString(),301)}const r=await env.ASSETS.fetch(request);if(r.status!==404)return r;const h=new Headers(r.headers);h.set("X-Robots-Tag","noindex, follow");return new Response(r.body,{status:404,headers:h})}};

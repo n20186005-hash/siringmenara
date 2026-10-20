@@ -34,3 +34,6 @@ img { display:block; max-width:100%; }
 .prose-policy p,.prose-policy li { color:#4f5b5c; }
 .prose-policy ul { padding-left:1.25rem; list-style:disc; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:1rem}.main-nav{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;font-size:.85rem;font-weight:700}.main-nav a,footer a{display:inline-flex;align-items:center;min-height:44px}button,summary{min-height:44px}summary{cursor:pointer}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #df6d36;outline-offset:3px}
+@media(max-width:850px){.main-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:.25rem}.main-nav a{justify-content:center;text-align:center;font-size:.8rem}.header-inner{align-items:flex-start}.display{overflow-wrap:anywhere}}
