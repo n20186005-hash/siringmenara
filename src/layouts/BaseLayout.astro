@@ -9,7 +9,7 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, image='/images/menara-hero.webp', noindex=false } = Astro.props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const canonical = !noindex && Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const ogImage = Astro.site ? new URL(image, Astro.site).href : undefined;
 const gaId = 'G-HXM22WWPKP';
 ---
@@ -57,6 +57,7 @@ const gaId = 'G-HXM22WWPKP';
         } catch {}
         window.addEventListener('menara:consent', (event) => {
           if (event.detail?.analytics === true) loadAnalytics();
+          else if (document.querySelector('script[data-ga-loader]')) window.location.reload();
         });
       })();
     </script>
