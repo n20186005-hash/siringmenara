@@ -39,26 +39,56 @@ const gaId = 'G-HXM22WWPKP';
     <script is:inline define:vars={{ gaId }}>
       (() => {
         const key = 'menara-cookie-consent';
-        const loadAnalytics = () => {
-          if (document.querySelector('script[data-ga-loader]')) return;
-          const script = document.createElement('script');
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
-          script.dataset.gaLoader = 'true';
-          document.head.appendChild(script);
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function(){ window.dataLayer.push(arguments); };
-          window.gtag('js', new Date());
-          window.gtag('config', gaId, { anonymize_ip: true });
+        const vetoKey = key + '-denied';
+        const id = gaId;
+        if (window.setMenaraAnalytics) return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+        let loaded = false;
+        let currentAllow = null;
+        window.readMenaraConsent = () => {
+          let data = {};
+          try { data = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch {}
+          try { if (sessionStorage.getItem(vetoKey) === '1') data.analytics = false; } catch { data.analytics = false; }
+          if (currentAllow !== null) data.analytics = currentAllow;
+          return data;
         };
-        try {
-          const saved = JSON.parse(localStorage.getItem(key) || '{}');
-          if (saved.analytics === true) loadAnalytics();
-        } catch {}
-        window.addEventListener('menara:consent', (event) => {
-          if (event.detail?.analytics === true) loadAnalytics();
-          else if (document.querySelector('script[data-ga-loader]')) window.location.reload();
+        window.setMenaraAnalytics = (allow) => {
+          let sessionSaved = false;
+          try {
+            if (allow) {
+              sessionStorage.removeItem(vetoKey);
+              if (sessionStorage.getItem(vetoKey) === '1') throw new Error('Veto retained');
+            } else sessionStorage.setItem(vetoKey, '1');
+            sessionSaved = true;
+          } catch {
+            if (allow) {
+              try { if (sessionStorage.getItem(vetoKey) === '1') allow = false; } catch { allow = false; }
+            }
+          }
+          currentAllow = allow;
+          window['ga-disable-' + id] = !allow;
+          window.gtag('consent', 'update', { analytics_storage: allow ? 'granted' : 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+          if (allow && !loaded) {
+            loaded = true;
+            window.gtag('js', new Date());
+            window.gtag('config', id, { anonymize_ip: true });
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+            document.head.appendChild(s);
+          }
+          return sessionSaved;
+        };
+        window.addEventListener('storage', (event) => {
+          if (event.key !== key) return;
+          let granted = false;
+          try { granted = JSON.parse(event.newValue || '{}').analytics === true; } catch {}
+          if (!granted) window.setMenaraAnalytics(false);
+          window.dispatchEvent(new Event('menara:consent-change'));
         });
+        window.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+        window.setMenaraAnalytics(window.readMenaraConsent().analytics === true);
       })();
     </script>
   </head>
